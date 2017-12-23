@@ -1,20 +1,21 @@
 # Naman Gupta
-# main.py
+# mine.py
 # namangupta9@gmail.com | namang@umich.edu
 
 import time
 import block
 
-class Miner():
+
+class Miner:
     """"Implementation of a Miner"""
 
     # Constructor
-    def __init__(self, index, timestamp):
+    def __init__(self):
         self.balance = 0
-
 
     # For Clean Output
     def __str__(self):
+        return "Miner's Accumulated Rewards: " + str(self.balance)
 
     # Miners Listen for Transactions, and Then Create Block Objects
     def create_block(self, blockchain_in, transactions_in):

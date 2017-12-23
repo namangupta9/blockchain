@@ -2,7 +2,7 @@
 # main.py
 # namangupta9@gmail.com | namang@umich.edu
 
-class Transactor():
+class Transactor:
     """"Implementation of a Block Chain Transactor"""
 
     # Constructor

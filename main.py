@@ -2,58 +2,39 @@
 # main.py
 # namangupta9@gmail.com | namang@umich.edu
 
-import mine
-import time
 import block
 import transaction
-import transactor
-import heapq
+import mine
+import output
 
-# COMMENTS
-# - Not building in blockchain forks
-# - Not building in any specific type of transactions, to maintain a simple, general blockchain form
 
-# Driver Implementation
 def main():
 
+    MAX_BLOCK_SIZE = 300
+
     # Add Genesis Block to Empty Blockchain
-    blockchain = []
-    blockchain.append(block.create_genesis_block())
-    print "Initial Blockchain:"
-    print_blockchain(blockchain)
+    blockchain = list
+    blockchain.append(block.GenesisBlock())
 
     # Transaction Pool is a Max-Heap (Priority Queue); Highest Value Transactions Get Mined First!
     transaction_pool = []
+    transaction.create_pseudo_transactions(transaction_pool)
 
-    # Create 10 Transactions, All of Size 100 Bytes; Add to Transaction Pool
-    for value in range(10):
-        trans = transaction.Transaction(time.time(), value * 100, 100)
-        trans_priority = trans.get_priority()
-        heapq.heappush(transaction_pool, (trans_priority, trans))
+    # Initial Output (Before Block Mining)
+    output.print_transaction_pool(transaction_pool)
+    output.print_initial_blockchain(blockchain)
 
-    # Add Transactions Here, Mine in a While Loop, Pop Transactions Accordingly
-
-
-    return
+    # Create Miner Object & Mine Until No Transactions Left
+    miner = mine.Miner()
+    while len(transaction_pool) != 0:
 
 
-# Blockchain Output Function
-def print_blockchain(blockchain_in):
-    print "Blockchain Height: " + blockchain_in[-1].block_height + "\n"
-    print "Top 3 Blocks:\n"
 
-    if len(blockchain_in >= 1):
-        print blockchain_in[-1]
 
-    if len(blockchain_in >= 2):
-        print blockchain_in[-2]
+        break
 
-    if len(blockchain_in >= 3):
-        print blockchain_in[-3]
 
 
 # EXECUTION
-global MAX_BLOCK_SIZE = 300
 main()
-
 

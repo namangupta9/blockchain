@@ -3,9 +3,11 @@
 # namangupta9@gmail.com | namang@umich.edu
 
 import time
-import main
+import random
+import heapq
 
-class Transaction():
+
+class Transaction:
     """"Representation of a Some Arbitrary Transaction"""
 
     # Constructor
@@ -16,19 +18,25 @@ class Transaction():
 
     # For Clean Output
     def __str__(self):
-        print "Transaction Timestamp: " + self.timestamp + "\n"
-        print "Transaction Value: " + self.value + "\n"
-        print "Transaction Size: " + self.size + "\n"
+        output = "TS: " + str(self.timestamp) + " |"
+        output += " Size: " + str(self.size) + " Bytes" + " |"
+        output += " Val: " + str(self.value)
+        return output
 
     def get_priority(self):
         return (self.value * (time.time() - self.timestamp)) / self.size
 
-    # Transactions Must Be Verified By Respective Nodes Before Addition to Transaction Pool
-    # Simple Verification Function Here
-    def validate(self):
 
-        # Verify Size
-        if (self.size > main.MAX_BLOCK_SIZE):
-            return False
 
-        return True
+def create_pseudo_transactions(transaction_pool_in):
+
+    # Create 10 Transactions, All of Size 100 Bytes
+    # Transactions Have Pseudo-Random Value & Timestamp (< Current Time)
+    for value in range(10):
+        random_timestamp = time.time() - random.randrange(20000, 50000)
+        random_value = (value + 1) * random.randrange(50, 90)
+        trans = Transaction(random_timestamp, random_value, 100)
+
+        # Priority Must be Negative for Proper Max-Heap Behavior
+        trans_priority = trans.get_priority() * -1
+        heapq.heappush(transaction_pool_in, (trans_priority, trans))
