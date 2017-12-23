@@ -1,6 +1,6 @@
 # Simple Blockchain
 
-*Didn't understand blockchain, so I decided to build a simple one.*
+*A simple implementation, for personal educational purposes.*
 
 ## Departures from Reality (Or, Room for Improvement)
 Transactions normally have associated parties, who verify transactions before addition to transaction pool
@@ -14,6 +14,7 @@ Only one miner, so there's no real need for a proof-of-work competition here
 - Simple, illustrative proof-of-work competition here is based on a random number generator that's just looking to get the number "7" to create the block
 
 ## Sample Output
+See Project Wiki
 
 ## Resources:
 ##### https://www.youtube.com/watch?v=bBC-nXj3Ng4
