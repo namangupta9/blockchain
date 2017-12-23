@@ -22,15 +22,18 @@ class Block:
         self.difficulty_target = 7
         self.nonce = None
 
+        header_string = str(self.previous_hash) + str(self.timestamp) + str(self.difficulty_target) + str(self.nonce)
+
         # Block's Hash: Made by Hashing Block Header 2x Through Cryptographic Hash Function
-        self.hash = hashlib.sha256(str(hashlib.sha256(None).hexdigest()))
+        self.hash = hashlib.sha256(str(hashlib.sha256(header_string).hexdigest()))
 
     # For Clean Output
     def __str__(self):
-        print "Block Height: " + str(self.block_height) + "\n"
-        print "Block Timestamp: " + str(self.timestamp) + "\n"
-        print "Block Hash: " + str(self.hash) + "\n"
-        print "Block Previous Hash: " + str(self.previous_hash) + "\n"
+        output = "Block Height: " + str(self.block_height) + "\n"
+        output += "Block Timestamp: " + str(self.timestamp) + "\n"
+        output += "Block Hash: " + str(self.hash.hexdigest()) + "\n"
+        output += "Block Previous Hash: " + str(self.previous_hash.hexdigest()) + "\n"
+        return output
 
 
 
@@ -45,10 +48,7 @@ class GenesisBlock(Block):
 
         # Block Header
         self.previous_hash = None
-        self.merkle_root = None
         self.timestamp = None
-        self.difficulty_target = None
-        self.nonce = None
 
         # Block's Hash: Made by Hashing Block Header 2x Through Cryptographic Hash Function
         self.hash = hashlib.sha256(str(hashlib.sha256("Genesis Block").hexdigest()))
@@ -56,7 +56,6 @@ class GenesisBlock(Block):
     # For Clean Output
     def __str__(self):
         output = ""
-        output += "Block Height: " + str(self.block_height) + "\n"
         output += "Block Timestamp: Genesis\n"
         output += "Block Hash: " + str(self.hash.hexdigest()) + "\n"
         output += "Block Previous Hash: N/A\n"

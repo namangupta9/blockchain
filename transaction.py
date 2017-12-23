@@ -27,14 +27,13 @@ class Transaction:
         return (self.value * (time.time() - self.timestamp)) / self.size
 
 
-
 def create_pseudo_transactions(transaction_pool_in):
 
     # Create 10 Transactions, All of Size 100 Bytes
     # Transactions Have Pseudo-Random Value & Timestamp (< Current Time)
     for value in range(10):
         random_timestamp = time.time() - random.randrange(20000, 50000)
-        random_value = (value + 1) * random.randrange(50, 90)
+        random_value = (value + 1) * random.randrange(5, 9)
         trans = Transaction(random_timestamp, random_value, 100)
 
         # Priority Must be Negative for Proper Max-Heap Behavior

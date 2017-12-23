@@ -20,13 +20,21 @@ class Miner:
     # Miners Listen for Transactions, and Then Create Block Objects
     def create_block(self, blockchain_in, transactions_in):
 
+        # Miner Reward For Block Creation - Fixed at .01
+        self.balance += 1
+
+        # Create New Block & Add to Blockchain
         new_block = block.Block(blockchain_in, time.time(), transactions_in)
 
-        # Miner Reward: For Block Creation - Fixed at .01
-        self.balance += .01
+        # Output Information about Creation
 
-        # Miner Reward: Variable - Based on # Transactions
-        # TODO
-        self.balance += .01 * new_block.transaction_counter
+        output = "New Block Created, Containing Transactions:\n"
 
-        return new_block
+        output += "Miner Rewarded 1 Unit of Currency\n"
+        for t in transactions_in:
+            output += str(t)
+            output += "\n"
+
+
+        print output
+        blockchain_in.append(new_block)

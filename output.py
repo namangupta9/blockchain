@@ -6,8 +6,9 @@
 def print_initial_blockchain(blockchain_in):
 
     print "\nInitial Blockchain"
-    print "--------------------"
+    print "-----------------------------------------"
     print blockchain_in[-1]
+    print "\n"
 
 
 def print_blockchain(blockchain_in):
@@ -32,5 +33,7 @@ def print_transaction_pool(transactions_in):
 
     index = 0
     for t in transactions_in:
-        print "Transaction " + str(index) + ": " + str(t[-1])
+        print "Priority " + str(index) + ": " + str(t[-1])
         index += 1
+
+    print "\n"
