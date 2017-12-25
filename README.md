@@ -13,9 +13,9 @@ Only one miner, so there's no real need for a proof-of-work competition here
 See Project Wiki
 
 ## Resources:
-##### Blockchain Fundamentals: https://www.youtube.com/watch?v=bBC-nXj3Ng4
-##### Asymmetric Encryption & Digital Signatures: https://www.youtube.com/watch?v=Us_Og3JeXiI
-##### Transaction Structure: http://chimera.labs.oreilly.com/books/1234000001802/ch05.html
-##### Blockchain Structure: http://chimera.labs.oreilly.com/books/1234000001802/ch07.html
-##### Mining & Decentralized Consensus: http://chimera.labs.oreilly.com/books/1234000001802/ch08.html
-##### Coding Tips: https://bigishdata.com/2017/10/17/write-your-own-blockchain-part-1-creating-storing-syncing-displaying-mining-and-proving-work/
+##### Blockchain Fundamentals: *https://www.youtube.com/watch?v=bBC-nXj3Ng4*
+##### Asymmetric Encryption & Digital Signatures: *https://www.youtube.com/watch?v=Us_Og3JeXiI*
+##### Transaction Structure: *http://chimera.labs.oreilly.com/books/1234000001802/ch05.html*
+##### Blockchain Structure: *http://chimera.labs.oreilly.com/books/1234000001802/ch07.html*
+##### Mining & Decentralized Consensus: *http://chimera.labs.oreilly.com/books/1234000001802/ch08.html*
+##### Coding Tips: *https://bigishdata.com/2017/10/17/write-your-own-blockchain-part-1-creating-storing-syncing-displaying-mining-and-proving-work/*
