@@ -3,10 +3,6 @@
 *A simple implementation, for personal educational purposes.*
 
 ## Departures from Reality (Or, Room for Improvement)
-Transactions normally have associated parties, who verify transactions before addition to transaction pool
-- In this simple implementation, pseudo-transactions (lacking associated parties) are generated randomly
-- Hence, this implementation isn't truly "decentralized"; there are no nodes to keep local copies
-
 Normally, a merkle root is included in the block, for purposes of verifying the validity of block transactions
 - A merkle tree would be created using the hashes of all the transactions in the block
 
