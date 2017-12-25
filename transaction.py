@@ -4,14 +4,16 @@
 
 import time
 import heapq
+import hashlib
 
 
 class UTXO:
     """"Representation of an Unspent Transaction Output"""
 
-    def __init__(self, value_in):
-        self.value = None
-        self.locking_script = None
+    def __init__(self, transaction_hash_in, output_index_in, value_in):
+        self.transaction_hash = transaction_hash_in     # Hash of Transaction Where This UTXO Came From
+        self.output_index = output_index_in             # Which Output Was This, In the OG Transaction?
+        self.value = value_in                           # "Amount" of the UTXO
 
 
 class Transaction:
@@ -21,22 +23,27 @@ class Transaction:
         """Representation of a Transaction Input"""
 
         def __init__(self, utxo_in):
-            self.associated_utxo = utxo_in
-            self.unlocking_script = None
+            self.transaction_hash = utxo_in.transaction_hash    # Hash of Transaction Containing UTXO
+            self.output_index = utxo_in.output_index            # Which Of That Transaction's Outputs is the UTXO?
 
     # Transaction Constructor
     def __init__(self, timestamp_in, value_in, size_in, sender_in, recipient_in):
+
+        # Basic Transaction Data
         self.timestamp = timestamp_in
         self.value = value_in
         self.size = size_in
+
+        # Transaction's Unique ID (Double Hashed) ("TXID")
+        self.hash = hashlib.sha256(hashlib.sha256(str(timestamp_in) + str(value_in) + str(size_in)))
 
         # For Transaction Verification
         self.sender = sender_in
         self.recipient = recipient_in
 
-        # Transaction Structure
-        self.inputs = self.get_inputs()
-        self.value_output, self.remainder_output = self.create_outputs()
+        # Transaction Linkages
+        self.inputs, self.input_count = self.get_inputs()
+        self.outputs, self.output_count = self.create_outputs()
 
     def get_inputs(self):
 
@@ -46,21 +53,24 @@ class Transaction:
         for u in self.sender.utxo_pool:
 
             # Add UTXO to Transaction Inputs
-            # Unlock w/ Signature of Current UTXO Owner (To Confirm They're Okay w/ This) todo
+            # Unlock w/ Signature of Current UTXO Owner (To Confirm They're Okay w/ This)
+            # (Unlock w/ Sender's Private Key) todo
             i = self.Input(u)
             inputs.append(i)
             inputs_sum += u.value
 
             # Remove from UTXO Pool - Eliminates 'Double Spend' Problem
-            self.sender.utxo_pool.remove(i)
+            self.sender.utxo_pool.remove(u)
 
             # Check If We're Done Adding Transaction Inputs
             if inputs_sum >= self.value:
                 break
 
-        return inputs
+        return inputs, len(inputs)
 
     def create_outputs(self):
+
+        outputs = []
 
         # Deduct Inputs from Value
         input_sum = 0
@@ -68,14 +78,20 @@ class Transaction:
             input_sum += i.value
 
         # Send Value to Recipient
-        # Lock Value's UXTO to New Owner todo
-        value_out = UTXO(self.value)
+        # Lock Value's UXTO to New Owner (Lock w/ Public Key of Recipient) todo
+        transaction_val_uxto = UTXO(self.hash, 0, self.value)
+        outputs.append(transaction_val_uxto)
+        self.recipient.utxo_pool.append(transaction_val_uxto)
 
-        # Return Change to Sender
-        remainder_out = UTXO(self.value - float(input_sum))
+        # (If Necessary) Return Change to Sender
+        if self.value - float(input_sum) == 0:
+            remainder_uxto = UTXO(self.hash, 1, self.value - float(input_sum))
+            outputs.append(remainder_uxto)
+            self.sender.utxo_pool.append(remainder_uxto)
 
-        return value_out, remainder_out
+        return outputs, len(outputs)
 
+    # For Implementation of Transaction Pool as a PQ (Max-Heap Based)
     def get_priority(self):
         return (self.value * (time.time() - self.timestamp)) / self.size
 
@@ -90,6 +106,7 @@ def transaction_str(transaction_in, transactors_in):
     return output
 
 
+# For Purposes of This Simple Implementation, Finite Set of Simple Two-Party Transactions Created
 def create_illustrative_transactions(transaction_pool_in, transactors_in):
 
     # Create A Few Transactions, All of 100-Byte Size
