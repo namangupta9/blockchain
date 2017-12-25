@@ -1,6 +1,6 @@
 # Simple Blockchain
 
-*A simple implementation, for personal educational purposes.*
+*A basic Python implementation of a blockchain data structure for personal education, designed to illustrate the fundamentals of concepts including decentralization, transaction linking, cryptographic hashing, asymmetric encryption, and block mining.*
 
 ## Departures from Reality (Or, Room for Improvement)
 Normally, a merkle root is included in the block, for purposes of verifying the validity of block transactions
