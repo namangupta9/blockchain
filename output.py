@@ -41,6 +41,33 @@ def print_transaction_pool(transactions_in, transactors_in):
     print "\n"
 
 
+def print_final(transactors_in):
+
+    # Final Outputs
+    print "\nAlpha's Final Blockchain:"
+    print_blockchain(transactors_in[0].blockchain)
+
+    print "\nAlpha's Final Unspent Transaction Outputs (UTXO's):"
+    print_utxo_pool(transactors_in[0].utxo_pool)
+
+    print "\nBravo's Final Blockchain:"
+    print_blockchain(transactors_in[1].blockchain)
+
+    print "\nBravo's Final Unspent Transaction Outputs (UTXO's):"
+    print_utxo_pool(transactors_in[1].utxo_pool)
+
+    print "\nCharlie's Final Blockchain:"
+    print_blockchain(transactors_in[2].blockchain)
+
+    print "\nCharlie's Final Unspent Transaction Outputs (UTXO's):"
+    print_utxo_pool(transactors_in[2].utxo_pool)
+
+    print "\nDelta's Final Blockchain:"
+    print_blockchain(transactors_in[3].blockchain)
+
+    print "\nDelta's Final Unspent Transaction Outputs (UTXO's):"
+    print_utxo_pool(transactors_in[3].utxo_pool)
+
 #todo
 def print_utxo_pool(utxo_pool_in):
     return None

@@ -19,10 +19,8 @@ class Block:
         # Block Header
         self.previous_hash = blockchain_in[-1].hash
         self.timestamp = timestamp_in
-        self.difficulty_target = 7
-        self.nonce = None
 
-        header_string = str(self.previous_hash) + str(self.timestamp) + str(self.difficulty_target) + str(self.nonce)
+        header_string = str(self.previous_hash) + str(self.timestamp)
 
         # Block's Hash: Made by Hashing Block Header 2x Through Cryptographic Hash Function
         self.hash = hashlib.sha256(str(hashlib.sha256(header_string).hexdigest()))
@@ -36,9 +34,8 @@ class Block:
         return output
 
 
-
-# Inherited Subclass for Genesis Block
-class GenesisBlock(Block):
+class GenesisBlock():
+    """"Implementation of a Genesis Block"""
 
     def __init__(self):
         # Block Height & Transactions

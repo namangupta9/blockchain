@@ -27,14 +27,11 @@ class Miner:
         new_block = block.Block(blockchain_in, time.time(), transactions_in)
 
         # Output Information about Creation
-
         output = "New Block Created, Containing Transactions:\n"
-
         output += "Miner Rewarded 1 Unit of Currency\n"
         for t in transactions_in:
             output += str(t)
             output += "\n"
-
 
         print output
         blockchain_in.append(new_block)

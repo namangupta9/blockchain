@@ -26,18 +26,20 @@ def main(max_block_size):
 
     # Transaction Pool is a Max-Heap (Priority Queue); Highest Value Transactions Get Mined First!
     transaction_pool = []
+
+    # Executes A Few Transactions; All Pushed to Un-Mined Transaction Pool
     transaction.create_illustrative_transactions(transaction_pool, transactors)
-    output.print_transaction_pool(transaction_pool, transactors) #todo
+    output.print_transaction_pool(transaction_pool, transactors)
 
     # Create Miner Object & Mine Blocks Until No Transactions Left
     miner = mine.Miner()
     while len(transaction_pool) != 0:
 
-        # Initialize Transactions for Block
+        # Initialize Container for Block Transactions
         block_transactions = []
         block_size = 0
 
-        # Add Transactions to Block Until Capacity Reached or No More Left
+        # Add Transactions to Block Until Arbitrary Capacity Reached or No More Left
         while (len(transaction_pool) != 0) and (transaction_pool[0][-1].size + block_size <= max_block_size):
             block_transactions.append(heapq.heappop(transaction_pool)[-1])
             block_size += block_transactions[-1].size
@@ -46,31 +48,9 @@ def main(max_block_size):
         for t in transactors:
             miner.create_block(t.blockchain, block_transactions)
 
+    # ...And We're Done
+    output.print_final(transactors)
 
-    # Final Outputs
-    print "\nAlpha's Final Blockchain:"
-    output.print_blockchain(transactors[0].blockchain)
-
-    print "\nAlpha's Final Unspent Transaction Outputs (UTXO's):"
-    output.print_utxo_pool(transactors[0].utxo_pool)
-
-    print "\nBravo's Final Blockchain:"
-    output.print_blockchain(transactors[1].blockchain)
-
-    print "\nBravo's Final Unspent Transaction Outputs (UTXO's):"
-    output.print_utxo_pool(transactors[1].utxo_pool)
-
-    print "\nCharlie's Final Blockchain:"
-    output.print_blockchain(transactors[2].blockchain)
-
-    print "\nCharlie's Final Unspent Transaction Outputs (UTXO's):"
-    output.print_utxo_pool(transactors[2].utxo_pool)
-
-    print "\nDelta's Final Blockchain:"
-    output.print_blockchain(transactors[3].blockchain)
-
-    print "\nDelta's Final Unspent Transaction Outputs (UTXO's):"
-    output.print_utxo_pool(transactors[3].utxo_pool)
 
 # EXECUTION
 main(300)

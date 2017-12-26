@@ -14,10 +14,12 @@ class UTXO:
         self.transaction_hash = transaction_hash_in     # Hash of Transaction Where This UTXO Came From
         self.output_index = output_index_in             # Which Output Was This, In the OG Transaction?
         self.value = value_in                           # "Amount" of the UTXO
+        self.signature = None
 
 
 class Transaction:
     """"Representation of a Some Arbitrary Transaction"""
+    # From Satoshi's White Paper: "We define an electronic coin as a chain of digital signatures"
 
     class Input:
         """Representation of a Transaction Input"""
@@ -53,8 +55,6 @@ class Transaction:
         for u in self.sender.utxo_pool:
 
             # Add UTXO to Transaction Inputs
-            # Unlock w/ Signature of Current UTXO Owner (To Confirm They're Okay w/ This)
-            # (Unlock w/ Sender's Private Key) todo
             i = self.Input(u)
             inputs.append(i)
             inputs_sum += u.value
@@ -78,10 +78,15 @@ class Transaction:
             input_sum += i.value
 
         # Send Value to Recipient
-        # Lock Value's UXTO to New Owner (Lock w/ Public Key of Recipient) todo
+        # Sender Signs Transaction w/ Its Private Key (Ensures That Only The Private Key Owner Can Spend!)
         transaction_val_uxto = UTXO(self.hash, 0, self.value)
+        self.sender.sign_utxo(self.recipient, transaction_val_uxto)
         outputs.append(transaction_val_uxto)
-        self.recipient.utxo_pool.append(transaction_val_uxto)
+
+        # Recipient Accepts Output
+        # Recipient Uses Public Key of Sender to Verify The Sender's Signature (To Verify Chain of Ownership!)
+        if self.recipient.verify_utxo(self.sender, transaction_val_uxto):
+            self.recipient.utxo_pool.append(transaction_val_uxto)
 
         # (If Necessary) Return Change to Sender
         if self.value - float(input_sum) == 0:
