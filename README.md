@@ -16,17 +16,17 @@ Only one miner, so there's no real need for a proof-of-work competition here
 See Project Wiki
 
 ## Resources:
-##### Satoshi Nakamoto's OG White Paper:
+#### Satoshi Nakamoto's OG White Paper:
 *https://bitcoin.org/bitcoin.pdf*
-##### Blockchain Fundamentals:
+#### Blockchain Fundamentals:
 *https://www.youtube.com/watch?v=bBC-nXj3Ng4*
-##### Asymmetric Encryption & Digital Signatures:
+#### Asymmetric Encryption & Digital Signatures:
 *https://www.youtube.com/watch?v=Us_Og3JeXiI*
-##### Transaction Structure:
+#### Transaction Structure:
 *http://chimera.labs.oreilly.com/books/1234000001802/ch05.html*
-##### Blockchain Structure:
+#### Blockchain Structure:
 *http://chimera.labs.oreilly.com/books/1234000001802/ch07.html*
-##### Mining & Decentralized Consensus:
+#### Mining & Decentralized Consensus:
 *http://chimera.labs.oreilly.com/books/1234000001802/ch08.html*
-##### Coding Tips:
+#### Coding Tips:
 *https://bigishdata.com/2017/10/17/write-your-own-blockchain-part-1-creating-storing-syncing-displaying-mining-and-proving-work/*
