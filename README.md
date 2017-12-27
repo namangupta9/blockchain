@@ -1,10 +1,13 @@
 # Simple Blockchain
 
-*A basic Python implementation of a blockchain data structure for personal education, designed to illustrate the fundamentals of concepts including decentralization, transaction linking, cryptographic hashing, asymmetric encryption, and block mining.*
+*A basic Python implementation of a blockchain data structure for personal education, designed to illustrate the fundamentals of related concepts including decentralization, cryptographic hashing, transaction linking, digital signatures, and block mining.*
 
 ## Departures from Reality (Or, Room for Improvement)
 Normally, a merkle root is included in the block, for purposes of verifying the validity of block transactions
 - A merkle tree would be created using the hashes of all the transactions in the block
+
+Didn't use locking & unlocking scripts for transactions, since it seems very Bitcoin-specific
+- Used the simple transaction verification protocol outlined in Satoshi's white paper instead
 
 Only one miner, so there's no real need for a proof-of-work competition here
 
