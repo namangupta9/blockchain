@@ -16,8 +16,8 @@ Only one miner, so there's no real need for a proof-of-work competition here
 See Project Wiki
 
 ## Resources:
-##### Satoshi's White Paper:
-https://bitcoin.org/bitcoin.pdf
+##### Satoshi Nakamoto's OG White Paper:
+*https://bitcoin.org/bitcoin.pdf*
 ##### Blockchain Fundamentals:
 *https://www.youtube.com/watch?v=bBC-nXj3Ng4*
 ##### Asymmetric Encryption & Digital Signatures:
