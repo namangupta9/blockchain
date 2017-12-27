@@ -23,7 +23,7 @@ class Transactor:
         self.blockchain = []
 
         # Unspent Transaction Outputs (UXTO's); Starts w/ Initial Value In
-        self.utxo_pool = [transaction.UTXO(initial_value_in)]
+        self.utxo_pool = [transaction.UTXO(None, None, initial_value_in)]
 
     # Transaction Verification Methods
     def sign_utxo(self, recipient_in, utxo_in):
@@ -33,7 +33,7 @@ class Transactor:
         #   a hash of the previous transaction and the public key of the next owner
 
         to_sign = hashlib.sha256(str(utxo_in.transaction_hash.hexdigest()) + str(recipient_in.public_key))
-        utxo_in.signature = self.key.sign(to_sign, '')
+        utxo_in.signature = self.key.sign(str(to_sign.hexdigest()), '')
 
     def verify_utxo(self, sender_in, utxo_in):
 
@@ -41,4 +41,4 @@ class Transactor:
         # - A payee can verify the signatures to verify the chain of ownership.
 
         to_verify = hashlib.sha256(str(utxo_in.transaction_hash.hexdigest()) + str(self.public_key))
-        return sender_in.public_key.verify(to_verify, utxo_in.signature)
+        return sender_in.public_key.verify(str(to_verify.hexdigest()), utxo_in.signature)

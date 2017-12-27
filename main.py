@@ -7,18 +7,18 @@ import block
 import transaction
 import mine
 import output
-import heapq
 
 
-def main(max_block_size):
+def main():
 
     # Define Transactors ("Nodes")
-    # Let's Say Each Transactor Buys In w/ 100 Units of Currency ("Coinbase Transaction")
+    # Let's Say Each Transactor Buys In w/ 100 Units of Currency
     alpha = transactor.Transactor("alpha", 100)
     bravo = transactor.Transactor("bravo", 100)
     charlie = transactor.Transactor("charlie", 100)
     delta = transactor.Transactor("delta", 100)
     transactors = [alpha, bravo, charlie, delta]
+    output.print_transactors()
 
     # Add Genesis Block
     for t in transactors:
@@ -32,25 +32,14 @@ def main(max_block_size):
     output.print_transaction_pool(transaction_pool, transactors)
 
     # Create Miner Object & Mine Blocks Until No Transactions Left
+    # Arbitarily Saying That Max. Size of a Block is 300 Bytes Worth of Transactions
     miner = mine.Miner()
     while len(transaction_pool) != 0:
-
-        # Initialize Container for Block Transactions
-        block_transactions = []
-        block_size = 0
-
-        # Add Transactions to Block Until Arbitrary Capacity Reached or No More Left
-        while (len(transaction_pool) != 0) and (transaction_pool[0][-1].size + block_size <= max_block_size):
-            block_transactions.append(heapq.heappop(transaction_pool)[-1])
-            block_size += block_transactions[-1].size
-
-        # Create Block, Add to Chain
-        for t in transactors:
-            miner.create_block(t.blockchain, block_transactions)
+        miner.mine_blocks(transactors, transaction_pool, max_block_size=300)
 
     # ...And We're Done
     output.print_final(transactors)
 
 
 # EXECUTION
-main(300)
+main()

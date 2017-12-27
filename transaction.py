@@ -16,28 +16,36 @@ class UTXO:
         self.value = value_in                           # "Amount" of the UTXO
         self.signature = None
 
+    def __str__(self):
+        output = "Previous Transaction Hash: " + str(self.transaction_hash.hexdigest()) + '\n'
+        output += "Previous Transaction Output Index:" + str(self.output_index) + '\n'
+        output += "Value: " + str(self.value) + '\n'
+        return output
+
+
+class Input:
+    """Representation of a Transaction Input"""
+
+    def __init__(self, utxo_in):
+        self.transaction_hash = utxo_in.transaction_hash  # Hash of Transaction Containing UTXO
+        self.output_index = utxo_in.output_index          # Which Of That Transaction's Outputs is the UTXO?
+        self.value = utxo_in.value                        # How Much Is That UTXO Worth?
+
 
 class Transaction:
     """"Representation of a Some Arbitrary Transaction"""
     # From Satoshi's White Paper: "We define an electronic coin as a chain of digital signatures"
 
-    class Input:
-        """Representation of a Transaction Input"""
-
-        def __init__(self, utxo_in):
-            self.transaction_hash = utxo_in.transaction_hash    # Hash of Transaction Containing UTXO
-            self.output_index = utxo_in.output_index            # Which Of That Transaction's Outputs is the UTXO?
-
     # Transaction Constructor
     def __init__(self, timestamp_in, value_in, size_in, sender_in, recipient_in):
 
         # Basic Transaction Data
-        self.timestamp = timestamp_in
+        self.timestamp = int(timestamp_in)
         self.value = value_in
         self.size = size_in
 
         # Transaction's Unique ID (Double Hashed) ("TXID")
-        self.hash = hashlib.sha256(hashlib.sha256(str(timestamp_in) + str(value_in) + str(size_in)))
+        self.hash = hashlib.sha256(str(hashlib.sha256(str(timestamp_in) + str(value_in) + str(size_in)).hexdigest()))
 
         # For Transaction Verification
         self.sender = sender_in
@@ -55,7 +63,7 @@ class Transaction:
         for u in self.sender.utxo_pool:
 
             # Add UTXO to Transaction Inputs
-            i = self.Input(u)
+            i = Input(u)
             inputs.append(i)
             inputs_sum += u.value
 
@@ -89,8 +97,8 @@ class Transaction:
             self.recipient.utxo_pool.append(transaction_val_uxto)
 
         # (If Necessary) Return Change to Sender
-        if self.value - float(input_sum) == 0:
-            remainder_uxto = UTXO(self.hash, 1, self.value - float(input_sum))
+        if input_sum - self.value > 0:
+            remainder_uxto = UTXO(self.hash, 1, input_sum - self.value)
             outputs.append(remainder_uxto)
             self.sender.utxo_pool.append(remainder_uxto)
 
@@ -102,12 +110,12 @@ class Transaction:
 
 
 # For Clean Output
-def transaction_str(transaction_in, transactors_in):
-    output = "TS: " + str(transaction_in.timestamp) + " |"
+def transaction_str(transaction_in):
+    output = "TimeStamp: " + str(transaction_in.timestamp) + " |"
     output += " Size: " + str(transaction_in.size) + " Bytes" + " |"
     output += " Val: " + str(transaction_in.value) + " |"
-    output += " Sender: " + str(transactors_in[transaction_in.sender].name) + " |"
-    output += " Recipient: " + str(transactors_in[transaction_in.recipient].name)
+    output += " Sender: " + str(transaction_in.sender.name) + " |"
+    output += " Recipient: " + str(transaction_in.recipient.name)
     return output
 
 
@@ -124,26 +132,26 @@ def create_illustrative_transactions(transaction_pool_in, transactors_in):
     heapq.heappush(transaction_pool_in, (trans_priority, a))
 
     # 30 Sent From Bravo to Charlie
-    b = Transaction(time.time() + 10000, 30, 100, transactors_in[1], transactors_in[2])
+    b = Transaction(time.time() + 10, 30, 100, transactors_in[1], transactors_in[2])
     trans_priority = b.get_priority() * -1
     heapq.heappush(transaction_pool_in, (trans_priority, b))
 
     # 50 Sent From Bravo to Delta
-    c = Transaction(time.time() + 20000, 50, 100, transactors_in[1], transactors_in[3])
+    c = Transaction(time.time() + 20, 50, 100, transactors_in[1], transactors_in[3])
     trans_priority = c.get_priority() * -1
     heapq.heappush(transaction_pool_in, (trans_priority, c))
 
     # 10 Sent From Charlie to Bravo
-    d = Transaction(time.time() + 10000, 10, 100, transactors_in[2], transactors_in[1])
+    d = Transaction(time.time() + 30, 10, 100, transactors_in[2], transactors_in[1])
     trans_priority = d.get_priority() * -1
     heapq.heappush(transaction_pool_in, (trans_priority, d))
 
     # 60 Sent From Delta to Alpha
-    e = Transaction(time.time() + 10000, 60, 100, transactors_in[3], transactors_in[0])
+    e = Transaction(time.time() + 40, 60, 100, transactors_in[3], transactors_in[0])
     trans_priority = e.get_priority() * -1
     heapq.heappush(transaction_pool_in, (trans_priority, e))
 
     # 40 Sent From Alpha to Charlie
-    f = Transaction(time.time() + 10000, 40, 100, transactors_in[0], transactors_in[2])
+    f = Transaction(time.time() + 50, 40, 100, transactors_in[0], transactors_in[2])
     trans_priority = f.get_priority() * -1
     heapq.heappush(transaction_pool_in, (trans_priority, f))

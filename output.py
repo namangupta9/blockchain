@@ -3,14 +3,13 @@
 # namangupta9@gmail.com | namang@umich.edu
 
 import transaction
+import heapq
 
 
-def print_initial_blockchain(blockchain_in):
+def print_transactors():
 
-    print "\nInitial Blockchain"
-    print "-----------------------------------------"
-    print blockchain_in[-1]
-    print "\n"
+    print "Transactors: Alpha, Bravo, Charlie, & Delta"
+    print "All Transactors Begin with 100 Units of Currency\n"
 
 
 def print_blockchain(blockchain_in):
@@ -34,8 +33,8 @@ def print_transaction_pool(transactions_in, transactors_in):
     print "-----------------"
 
     index = 0
-    for t in transactions_in:
-        print "Priority " + str(index) + ": " + transaction.transaction_str(t[-1], transactors_in)
+    for t in heapq.nsmallest(6, transactions_in):
+        print "Priority " + str(index) + ": " + transaction.transaction_str(t[-1])
         index += 1
 
     print "\n"
@@ -44,30 +43,29 @@ def print_transaction_pool(transactions_in, transactors_in):
 def print_final(transactors_in):
 
     # Final Outputs
-    print "\nAlpha's Final Blockchain:"
+    print "\nTransactors' Final Blockchain:"
     print_blockchain(transactors_in[0].blockchain)
 
-    print "\nAlpha's Final Unspent Transaction Outputs (UTXO's):"
+    print "\nAlpha's Final Unspent Transaction Output (UTXO's) Pool"
     print_utxo_pool(transactors_in[0].utxo_pool)
 
-    print "\nBravo's Final Blockchain:"
-    print_blockchain(transactors_in[1].blockchain)
-
-    print "\nBravo's Final Unspent Transaction Outputs (UTXO's):"
+    print "\nBravo's Final Unspent Transaction Outputs (UTXO's) Pool"
     print_utxo_pool(transactors_in[1].utxo_pool)
 
-    print "\nCharlie's Final Blockchain:"
-    print_blockchain(transactors_in[2].blockchain)
-
-    print "\nCharlie's Final Unspent Transaction Outputs (UTXO's):"
+    print "\nCharlie's Final Unspent Transaction Outputs (UTXO's) Pool"
     print_utxo_pool(transactors_in[2].utxo_pool)
 
-    print "\nDelta's Final Blockchain:"
-    print_blockchain(transactors_in[3].blockchain)
-
-    print "\nDelta's Final Unspent Transaction Outputs (UTXO's):"
+    print "\nDelta's Final Unspent Transaction Outputs (UTXO's) Pool"
     print_utxo_pool(transactors_in[3].utxo_pool)
 
-#todo
+
 def print_utxo_pool(utxo_pool_in):
-    return None
+
+    print "---------------------------------------------------------"
+
+    sum = 0
+    for u in utxo_pool_in:
+        print str(u)
+        sum += u.value
+
+    print "UTXO Balance: " + str(sum) + '\n'
