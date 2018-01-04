@@ -22,7 +22,10 @@ Used the simple transaction verification protocol outlined in Chapter 2 of Satos
 Only one miner, so there's no real need for a proof-of-work competition here
 
 ## Sample Output
-See Project Wiki
+![Genesis Block Creation](img/SampleOut1.png)
+![Transaction Pool](img/SampleOut2.png)
+![Block Mining](img/SampleOut3.png)
+![Final Blockchain](img/SampleOut4.png)
 
 ## Resources:
 #### Satoshi Nakamoto's OG White Paper:
