@@ -20,9 +20,8 @@ class Block:
         self.previous_hash = blockchain_in[-1].hash
         self.timestamp = timestamp_in
 
-        header_string = str(self.previous_hash) + str(self.timestamp)
-
         # Block's Hash: Made by Hashing Block Header 2x Through Cryptographic Hash Function
+        header_string = str(self.previous_hash) + str(self.timestamp)
         self.hash = hashlib.sha256(str(hashlib.sha256(header_string).hexdigest()))
 
     # For Clean Output

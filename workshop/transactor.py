@@ -16,14 +16,13 @@ class Transactor:
         self.name = name_in
 
         # Generate Key Pair (Public, Private)
-        random_generator = Random.new().read
-        self.key = RSA.generate(1024, random_generator)     # Both Public & Private Keys
-        self.public_key = self.key.publickey()              # For External Access
+        # TODO
 
         # All Start w/ Empty Local Copy of Blockchain
-        self.blockchain = []
+        # TODO
 
         # Unspent Transaction Outputs (UXTO's); Starts w/ Initial Value In
+        # Will make sense when after we implement transactions.py
         self.utxo_pool = [transaction.UTXO(None, None, initial_value_in)]
 
     # Transaction Verification Methods

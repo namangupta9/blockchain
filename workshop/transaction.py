@@ -40,69 +40,55 @@ class Transaction:
     def __init__(self, timestamp_in, value_in, size_in, sender_in, recipient_in):
 
         # Basic Transaction Data
-        self.timestamp = int(timestamp_in)
-        self.value = value_in
-        self.size = size_in
+        # TODO
 
         # Transaction's Unique ID (Double Hashed) ("TXID")
         self.hash = hashlib.sha256(str(hashlib.sha256(str(timestamp_in) + str(value_in) + str(size_in)).hexdigest()))
 
         # For Transaction Verification
-        self.sender = sender_in
-        self.recipient = recipient_in
+        # TODO
 
         # Transaction Linkages
-        self.inputs, self.input_count = self.get_inputs()
-        self.outputs, self.output_count = self.create_outputs()
+        # TODO
 
     def get_inputs(self):
 
         # Go To Sender, Greedily Select Transaction Inputs from Unspent Transaction Outputs Pool
-        inputs = []
-        inputs_sum = 0
-        for u in self.sender.utxo_pool:
+        # TODO
 
             # Add UTXO to Transaction Inputs
-            i = Input(u)
-            inputs.append(i)
-            inputs_sum += u.value
+            # TODO
 
             # Remove from UTXO Pool - Eliminates 'Double Spend' Problem
-            self.sender.utxo_pool.remove(u)
+            # TODO
 
             # Check If We're Done Adding Transaction Inputs
-            if inputs_sum >= self.value:
-                break
+            # TODO
 
-        return inputs, len(inputs)
+        # TODO
+        return None
 
     def create_outputs(self):
 
-        outputs = []
+        # Initialize Container for Outputs
+        # TODO
 
         # Deduct Inputs from Value
-        input_sum = 0
-        for i in self.inputs:
-            input_sum += i.value
+        # TODO
 
         # Send Value to Recipient
         # Sender Signs Transaction w/ Its Private Key (Ensures That Only The Private Key Owner Can Spend!)
-        transaction_val_uxto = UTXO(self.hash, 0, self.value)
-        self.sender.sign_utxo(self.recipient, transaction_val_uxto)
-        outputs.append(transaction_val_uxto)
+        # TODO
 
         # Recipient Accepts Output
         # Recipient Uses Public Key of Sender to Verify The Sender's Signature (To Verify Chain of Ownership!)
-        if self.recipient.verify_utxo(self.sender, transaction_val_uxto):
-            self.recipient.utxo_pool.append(transaction_val_uxto)
+        # TODO
 
         # (If Necessary) Return Change to Sender
-        if input_sum - self.value > 0:
-            remainder_uxto = UTXO(self.hash, 1, input_sum - self.value)
-            outputs.append(remainder_uxto)
-            self.sender.utxo_pool.append(remainder_uxto)
+        # TODO
 
-        return outputs, len(outputs)
+        # TODO
+        return None
 
     # For Implementation of Transaction Pool as a PQ (Max-Heap Based)
     def get_priority(self):
