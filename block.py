@@ -10,7 +10,7 @@ class Block:
 
     # Constructor
     def __init__(self, blockchain_in, timestamp_in, transactions_in):
-
+        """Constructing base block instance."""
         # Block Height & Transactions
         self.block_height = blockchain_in[-1].block_height + 1    #Basically, The Index in Our Blockchain
         self.transactions = transactions_in
@@ -26,6 +26,7 @@ class Block:
 
     # For Clean Output
     def __str__(self):
+        """Print properly."""
         output = "Block Height: " + str(self.block_height) + "\n"
         output += "Block Timestamp: " + str(self.timestamp) + "\n"
         output += "Block Hash: " + str(self.hash.hexdigest()) + "\n"
@@ -37,6 +38,7 @@ class GenesisBlock():
     """"Implementation of a Genesis Block"""
 
     def __init__(self):
+        """Constructing base genesis block instance."""
         # Block Height & Transactions
         self.block_height = 0
         self.transactions = []
@@ -51,6 +53,7 @@ class GenesisBlock():
 
     # For Clean Output
     def __str__(self):
+        """Print properly."""
         output = ""
         output += "Block Timestamp: Genesis\n"
         output += "Block Hash: " + str(self.hash.hexdigest()) + "\n"

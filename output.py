@@ -7,13 +7,11 @@ import heapq
 
 
 def print_transactors():
-
     print "Transactors: Alpha, Bravo, Charlie, & Delta"
     print "All Transactors Begin with 100 Units of Currency\n"
 
 
 def print_blockchain(blockchain_in):
-
     print "Blockchain Height: " + str(blockchain_in[-1].block_height)
     print "-----------------------------------------"
 
@@ -28,7 +26,6 @@ def print_blockchain(blockchain_in):
 
 
 def print_transaction_pool(transactions_in, transactors_in):
-
     print "Transaction Pool: "
     print "-----------------"
 
@@ -41,7 +38,6 @@ def print_transaction_pool(transactions_in, transactors_in):
 
 
 def print_final(transactors_in):
-
     # Final Outputs
     print "\nTransactors' Final Blockchain:"
     print_blockchain(transactors_in[0].blockchain)
@@ -60,7 +56,6 @@ def print_final(transactors_in):
 
 
 def print_utxo_pool(utxo_pool_in):
-
     print "---------------------------------------------------------"
 
     sum = 0

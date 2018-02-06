@@ -10,7 +10,7 @@ import output
 
 
 def main():
-
+    """Execute all components of program."""
     # Define Transactors ("Nodes")
     # Let's Say Each Transactor Buys In w/ 100 Units of Currency
     alpha = transactor.Transactor("alpha", 100)

@@ -10,7 +10,6 @@ import transaction
 
 class Miner:
     """"Implementation of a Miner"""
-
     # Constructor
     def __init__(self):
         self.balance = 0
