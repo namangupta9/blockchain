@@ -3,7 +3,7 @@
 A basic implementation of a blockchain data structure for personal education, designed to illustrate the fundamentals of related concepts including decentralization, cryptographic hashing, transaction linking, digital signatures, and block mining.
 
 ### University of Michigan Demonstration
-+ [Syllabus](goo.gl/5PK68k)
++ [Syllabus](https://drive.google.com/file/d/1c5NTQxJuT1IazXWPuM5mxSpuL5vU9aRw/view)
 + See [workshop/](https://github.com/namangupta9/blockchain/tree/master/workshop) to recreate from base template
 + Co-Instructor: [@izakfr](https://github.com/izakfr)
 
