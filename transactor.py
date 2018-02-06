@@ -12,6 +12,7 @@ class Transactor:
     """"Implementation of a Block Chain Transactor"""
 
     def __init__(self, name_in, initial_value_in):
+        """Construct a Transactor instance."""
         self.name = name_in
 
         # Generate Key Pair (Public, Private)
