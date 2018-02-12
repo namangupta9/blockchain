@@ -18,11 +18,12 @@ class Block:
         # TODO
 
         # Block's Hash: Made by Hashing Block Header 2x Through Cryptographic Hash Function
-        # TODO
-        self.hash = hashlib.sha256(str(hashlib.sha256(header_string).hexdigest()))
+        header_string = str(self.previous_hash).encode('utf-8') + str(self.timestamp).encode('utf-8')
+        self.hash = hashlib.sha256(str(hashlib.sha256(header_string).hexdigest()).encode('utf-8'))
 
     # For Clean Output
     def __str__(self):
+        """Print properly."""
         output = "Block Height: " + str(self.block_height) + "\n"
         output += "Block Timestamp: " + str(self.timestamp) + "\n"
         output += "Block Hash: " + str(self.hash.hexdigest()) + "\n"
@@ -42,7 +43,8 @@ class GenesisBlock():
         # TODO
 
         # Block's Hash: Made by Hashing Block Header 2x Through Cryptographic Hash Function
-        self.hash = hashlib.sha256(str(hashlib.sha256("Genesis Block").hexdigest()))
+        hash_text = "Genesis Block".encode('utf-8')
+        self.hash = hashlib.sha256(str(hashlib.sha256(hash_text).hexdigest()).encode('utf-8'))
 
     # For Clean Output
     def __str__(self):

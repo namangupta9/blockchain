@@ -49,4 +49,4 @@ class Miner:
             out += transaction.transaction_str(t)
             out += "\n"
 
-        print out
+        print(out)

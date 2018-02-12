@@ -43,7 +43,8 @@ class Transaction:
         # TODO
 
         # Transaction's Unique ID (Double Hashed) ("TXID")
-        self.hash = hashlib.sha256(str(hashlib.sha256(str(timestamp_in) + str(value_in) + str(size_in)).hexdigest()))
+        self.hash = hashlib.sha256(str(hashlib.sha256(str(timestamp_in).encode('utf-8') + \
+                                   str(value_in).encode('utf-8') + str(size_in).encode('utf-8')).hexdigest()).encode('utf-8'))
 
         # For Transaction Verification
         # TODO
