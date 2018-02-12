@@ -33,13 +33,17 @@ class Transactor:
         # - Each owner transfers the coin to the next by digitally signing
         #   a hash of the previous transaction and the public key of the next owner
 
-        to_sign = hashlib.sha256(str(utxo_in.transaction_hash.hexdigest()) + str(recipient_in.public_key))
-        utxo_in.signature = self.key.sign(str(to_sign.hexdigest()), '')
+        to_sign = hashlib.sha256(str(utxo_in.transaction_hash.hexdigest()).encode('utf-8') + \
+                                 str(recipient_in.public_key).encode('utf-8'))
+
+        utxo_in.signature = self.key.sign(str(to_sign.hexdigest()).encode('utf-8'), '')
 
     def verify_utxo(self, sender_in, utxo_in):
 
         # From Satoshi's White Paper:
         # - A payee can verify the signatures to verify the chain of ownership.
 
-        to_verify = hashlib.sha256(str(utxo_in.transaction_hash.hexdigest()) + str(self.public_key))
+        to_verify = hashlib.sha256(str(utxo_in.transaction_hash.hexdigest()).encode('utf-8') + \
+                                   str(self.public_key).encode('utf-8'))
+                                   
         return sender_in.public_key.verify(str(to_verify.hexdigest()), utxo_in.signature)
